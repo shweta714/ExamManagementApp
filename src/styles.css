@@ -1,0 +1,55 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --danger: #ef4444;
+  --muted: #6b7280;
+}
+
+body {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: #111827;
+}
+
+.app header {
+  padding: 1rem;
+  background: var(--card);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.app header h1 { margin: 0 }
+
+main {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.left { width: 380px }
+.right { flex: 1 }
+
+.card {
+  background: var(--card);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.exam-list { list-style: none; padding: 0; margin: 0 }
+.exam-item { display: flex; justify-content: space-between; align-items:center; padding: 0.5rem 0; border-bottom: 1px solid #f3f4f6 }
+.exam-item:last-child { border-bottom: none }
+.exam-info { cursor: pointer }
+.exam-info span { display:block; color: var(--muted); font-size: 0.9rem }
+
+label { display:block; margin-bottom: 0.5rem }
+input, textarea { width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box }
+.actions { margin-top: 0.5rem }
+
+.btn { padding: 0.4rem 0.75rem; border: none; border-radius: 6px; cursor: pointer }
+.btn.primary { background: var(--accent); color: white }
+.btn.danger { background: var(--danger); color: white }
+
+footer { padding: 1rem; text-align: center; color: var(--muted) }
