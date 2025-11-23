@@ -78,3 +78,23 @@ const resolvers = {
 };
 
 module.exports = { typeDefs, resolvers };
+
+if (require.main === module) {
+  const { ApolloServer } = require('apollo-server');
+
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+
+  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 4000;
+  // bind to 0.0.0.0 to allow external connections if needed (useful in VMs/containers)
+  server.listen({ port, host: '0.0.0.0' })
+    .then(({ url }) => {
+      console.log(`GraphQL server ready at ${url} (port=${port})`);
+    })
+    .catch(err => {
+      console.error('Failed to start GraphQL server:', err);
+      process.exit(1);
+    });
+}
