@@ -1,8 +1,18 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import './styles.css';
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App'
+import './styles/styles.css'
+import { syncFromServer } from './db'
 
-const el = document.getElementById('root');
-if (!el) throw new Error('#root not found');
-createRoot(el).render(<App />);
+(async function bootstrap(){
+  // attempt to sync DB from server (if you run `node server.js`)
+  try { await syncFromServer() } catch(e){}
+  createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  )
+})()

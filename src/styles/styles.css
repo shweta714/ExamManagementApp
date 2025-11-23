@@ -1,0 +1,40 @@
+:root{ --bg:#f6f8fb; --card:#fff; --text:#0b1220; --muted:#556; --accent:#2d7bf6 }
+.dark{ --bg:#0f1720; --card:#0b1220; --text:#e6eef8; --muted:#9aa; --accent:#58a6ff }
+*{box-sizing:border-box;font-family:Segoe UI, Roboto, sans-serif}
+body,html,#root{height:100%;margin:0}
+body{background:var(--bg);color:var(--text)}
+.container{max-width:900px;margin:40px auto;padding:20px}
+.btn{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn.small{padding:6px 8px}
+.btn.danger{background:#e03c31}
+.link{background:none;border:0;color:var(--accent);cursor:pointer}
+.card{background:var(--card);padding:12px;border-radius:8px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.intro{text-align:center}
+.intro-cards{display:flex;gap:12px;justify-content:center}
+.card .muted{color:var(--muted)}
+.sidebar{width:260px;padding:20px;background:var(--card);height:100vh;position:fixed}
+.sidebar .brand{margin-bottom:12px}
+.sidebar .user-mini{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.sidebar .avatar{width:44px;height:44px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-weight:700}
+.sidebar .nav{display:flex;flex-direction:column;gap:8px}
+.sidebar .nav a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px}
+.sidebar .nav a.active{background:rgba(0,0,0,0.04)}
+.main-area{margin-left:300px;padding:24px}
+.page h2{margin-top:0}
+.row-between{display:flex;justify-content:space-between;align-items:center}
+.col-right{text-align:right}
+.badge{padding:6px 10px;border-radius:6px;color:white}
+.badge.ongoing{background:#16a34a}
+.badge.scheduled{background:#f59e0b}
+.badge.ended{background:#6b7280}
+.small-row{display:flex;justify-content:space-between}
+.muted{color:var(--muted)}
+.question .options{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+label{display:block}
+label.selected{background:rgba(0,0,0,0.04);padding:6px;border-radius:6px}
+.exam-actions{margin-top:12px}
+.error{background:#fee2e2;color:#86181d;padding:8px;border-radius:6px}
+.side-footer{position:absolute;bottom:20px;left:20px}
+.profile input, .auth input {width:100%;padding:8px;margin:8px 0;border-radius:6px;border:1px solid #ddd}
+.auth-box{max-width:420px;margin:40px auto;padding:20px}
+@media(max-width:900px){.sidebar{position:relative;width:100%;height:auto}.main-area{margin-left:0}}
