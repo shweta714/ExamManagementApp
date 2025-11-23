@@ -1,42 +1,98 @@
-import React, { useState } from 'react'
-import ExamList from './components/ExamList'
-import ExamForm from './components/ExamForm'
-import ExamDetail from './components/ExamDetail'
-
-const sampleExams = [
-  { id: 1, title: 'Math Final', date: '2025-12-10', duration: 120, description: 'Algebra, calculus' },
-  { id: 2, title: 'Physics Midterm', date: '2025-11-30', duration: 90, description: 'Mechanics and waves' }
-]
+import React, { useState } from 'react';
+import Home from './Home';
+import Login from './Login';
+import Dashboard from './Dashboard';
+import Assistant from './Assistant';
+import Signup from './Signup'; // add import
+import ForgotPassword from './ForgotPassword'; // new import
 
 export default function App() {
-  const [exams, setExams] = useState(sampleExams)
-  const [selected, setSelected] = useState(null)
-
-  function addExam(exam) {
-    const id = exams.length ? Math.max(...exams.map(e => e.id)) + 1 : 1
-    setExams(prev => [...prev, { ...exam, id }])
+  const [route, setRoute] = useState('home'); 
+  const [user, setUser] = useState(null);
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  function openAssistant() {
+    setAssistantOpen(true);
+  }
+  function closeAssistant() {
+    setAssistantOpen(false);
   }
 
-  function deleteExam(id) {
-    setExams(prev => prev.filter(e => e.id !== id))
-    if (selected && selected.id === id) setSelected(null)
+  function handleLogin(username) {
+    setUser({ username });
+    setRoute('dashboard');
   }
+  function handleLogout() {
+    setUser(null);
+    setRoute('home');
+  }
+
+  
+  function goToSection(id) {
+    setRoute('home');
+
+    if (id === 'home') {
+      
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 80);
+      return;
+    }
+    window.location.hash = `#${id}`;
+
+    let attempts = 0;
+    const maxAttempts = 30;
+    const tryScroll = () => {
+      attempts += 1;
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const focusable = el.querySelector('input, textarea, button, select, [tabindex]');
+        if (focusable) focusable.focus();
+        return;
+      }
+      if (attempts < maxAttempts) {
+        setTimeout(tryScroll, 100);
+      }
+    };
+
+    
+    setTimeout(tryScroll, 120);
+  }
+
+  // NEW: navigate to signup page
+  function openSignup() { setRoute('signup'); }
+  function openForgot() { setRoute('forgot'); } // new
 
   return (
-    <div className="app">
-      <header>
-        <h1>Exam Management</h1>
-      </header>
+    <>
+      <nav className="top-nav">
+        <div className="nav-left">Campus360</div>
+        <div className="nav-right">
+          <button className="nav-link" onClick={() => goToSection('home')}>Home</button>
+          <button className="nav-link" onClick={() => goToSection('about')}>About</button>
+          <button className="nav-link" onClick={() => goToSection('feedback')}>Feedback</button>
+
+          {user ? (
+            <>
+              <button className="nav-link" onClick={() => setRoute('dashboard')}>Dashboard</button>
+              <button className="nav-cta" onClick={handleLogout}>Logout</button>
+            </>
+          ) : null}
+        </div>
+      </nav>
+
       <main>
-        <section className="left">
-          <ExamForm onAdd={addExam} />
-          <ExamList exams={exams} onSelect={setSelected} onDelete={deleteExam} />
-        </section>
-        <section className="right">
-          <ExamDetail exam={selected} />
-        </section>
+        {route === 'home' && (
+          <Home onGetStarted={() => setRoute('login')} onOpenAssistant={openAssistant} onSignUpRequested={openSignup} />
+        )}
+        {route === 'login' && (
+          <Login onLogin={handleLogin} onCancel={() => setRoute('home')} onSignUpRequested={openSignup} onForgotRequested={openForgot} />
+        )}
+        {route === 'signup' && <Signup onSignupSuccess={() => setRoute('login')} onCancel={() => setRoute('home')} onLoginRequested={() => setRoute('login')} />}
+        {route === 'forgot' && <ForgotPassword onDone={() => setRoute('login')} onCancel={() => setRoute('login')} />}
+        {route === 'dashboard' && user && <Dashboard user={user} />}
       </main>
-      <footer>Built with React + Vite</footer>
-    </div>
-  )
+
+      {}
+      {assistantOpen && <Assistant onClose={closeAssistant} />}
+    </>
+  );
 }

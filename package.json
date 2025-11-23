@@ -4,13 +4,19 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "start-server": "node server/server.js",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-server": "node --check server/server.js"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "vite": "^5.0.0",
