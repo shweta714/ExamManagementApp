@@ -93,7 +93,45 @@ export default function Home({ onGetStarted, onOpenAssistant, onSignUpRequested 
         </div>
 
         <div className="hero-right">
-          <div className="hero-card-illustration">Campus 360</div>
+          {}
+          <div
+            className="hero-card-illustration"
+            role="img"
+            aria-label="Campus 360 image"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflow: 'hidden',
+              background: 'transparent',
+              padding: 0,
+              boxSizing: 'border-box',
+              borderRadius: 16,
+              width: '100%',
+              maxWidth: 880,
+              margin: '0 auto',
+              aspectRatio: '16 / 9',
+              minHeight: 220,
+            }}
+          >
+            <img
+              alt="Campus 360"
+              className="hero-card-illustration-img"
+              loading="lazy"
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+              src="/images/hero-card.jpeg"
+              onError={(e) => {
+                console.warn('Hero image failed to load. Ensure public/images/hero-card.jpeg exists and the filename matches exactly.');
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = 'https://picsum.photos/1200/675';
+              }}
+            />
+          </div>
         </div>
       </div>
 
@@ -191,7 +229,7 @@ export default function Home({ onGetStarted, onOpenAssistant, onSignUpRequested 
       </section>
 
       {}
-      {/* Get Started chooser modal */}
+      {}
       {showGetStartedOptions && (
         <div className="getstarted-modal" role="dialog" aria-modal="true">
           <div className="getstarted-card">

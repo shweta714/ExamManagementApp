@@ -10,7 +10,6 @@ function Stat({ label, value }) {
 }
 
 export default function Dashboard({ user }) {
-  // demo static data (replace with API/GraphQL later)
   const stats = [
     { label: 'Active Exams', value: 5 },
     { label: 'Students', value: 128 },
